@@ -36,6 +36,7 @@ STATE NOW
 - Repo github.com/manojvermamv/oa-recorder: PUBLIC, branch main only,
   main = origin/main, working tree clean. Recreated fresh on 16 Nov: history
   starts at the "Initial commit"; no market data was ever in this repo.
+  About description and 20 topics set by the owner on GitHub.
 - Tests: 8 pass (python -m pytest -q, ~65 s, fake OpenAlgo; last run 14 Nov,
   code unchanged since).
 - Proven against real OpenAlgo 2.0.3.3 + Upstox (on the phone): oar check,
@@ -77,6 +78,11 @@ HISTORY, IN ORDER
 9. 16 Nov: one emoji per section header in all docs; handoff consolidated.
 10. 16 Nov: old GitHub repo deleted and recreated public with a single
    "Initial commit" of the same files (local .git replaced too).
+11. 16 Nov: clean-up closed out: GitHub CLI delete_repo permission removed
+   (checked: scopes gist, read:org, repo, user, workflow); old-history backup
+   bundle deleted from the office PC; owner set the repo About description
+   and topics; the "copies from the hour the data was public" risk closed by
+   the owner (accepted, no further action).
 
 MARKET DATA (office PC only: <repo>/market-data/, git-ignored)
 - date=2026-11-12 (3.6 MB): after-close only. 332/332 bar calls ok, 61,853
@@ -99,12 +105,10 @@ MARKET DATA (office PC only: <repo>/market-data/, git-ignored)
   IV/greeks), BSE redistribution licence fees and Upstox terms all require
   written consent / a licence to republish, historical data included. A
   LICENSE file cannot grant that. Keep it local or in private storage.
-- The data was public on the old (now deleted) repo for about 1 hour on
-  16 Nov; anyone who cloned it then keeps a copy.
-- A backup of the old repo's history, which includes the data (112 MB), is
-  on the office PC under %TEMP%\claude\...\scratchpad\
-  oa-recorder-before-unpublish.bundle; Windows may clear it, delete it when
-  no longer needed.
+- CLOSED (owner, 16 Nov): the data was public on the old, now deleted repo
+  for about 1 hour; possible copies made then are accepted, no action.
+- The old-history backup bundle is deleted; no copy of the old history
+  remains on GitHub or the office PC.
 - market-data/ is the only copy: back it up privately if it matters.
 
 CODE
@@ -163,9 +167,9 @@ NEXT STEPS
    manifest.json and events.parquet; raise chain_seconds on quote refusals.
 2. Keep recorded data out of git (market-data/ and data/ are ignored);
    plan disk for ~650 MB/day or set keep_raw=false.
-3. Optional: delete the old-history backup bundle; back up market-data/
-   privately; remove the GitHub CLI delete_repo permission
-   (`gh auth refresh -h github.com -r delete_repo`).
+3. Optional: back up market-data/ privately. Two repo topics look mistyped:
+   "marke" (meant market-data?) and "algorithmic-trading-quantitative"
+   (meant algorithmic-trading?).
 4. Possible later additions (not built): auto-restart watchdog, README
    Android section.
 
