@@ -4,7 +4,8 @@ One entry per handoff, newest first. Times are IST. Each entry is a plain text
 block so it can be copied as-is into the next session. On 2026-11-16 all
 earlier entries (13 Nov main session, 13 Nov phone side session, 14 Nov
 consolidated, 16 Nov live day, 16 Nov phone removal) were merged into the
-single entry below; older versions are in git history.
+single entry below. The repo was recreated on 2026-11-16 with one initial
+commit, so earlier versions are not in git history.
 
 ## 🗃️ 2026-11-16 17:30 IST — consolidated
 
@@ -33,7 +34,8 @@ STATE NOW
   Docker server is not set up (SSH host not given). Capture restarts only
   when oar is deployed somewhere.
 - Repo github.com/manojvermamv/oa-recorder: PUBLIC, branch main only,
-  main = origin/main, working tree clean.
+  main = origin/main, working tree clean. Recreated fresh on 16 Nov: history
+  starts at the "Initial commit"; no market data was ever in this repo.
 - Tests: 8 pass (python -m pytest -q, ~65 s, fake OpenAlgo; last run 14 Nov,
   code unchanged since).
 - Proven against real OpenAlgo 2.0.3.3 + Upstox (on the phone): oar check,
@@ -61,19 +63,20 @@ HISTORY, IN ORDER
 5. 13-14 Nov side session: phone test rig (Termux + proot Debian) with
    OpenAlgo and oar; `oar setup` added (hidden API-key prompt, writes .env).
    After-close data for 12 and 13 Nov fetched. Phone identifiers were
-   scrubbed from all git history (history rewritten 14 Nov).
+   removed from the docs.
 6. 16 Nov: first live day on the phone (14:51-15:33). Android killed Termux
    at 15:33 (memory pressure); restarted 15:50 and the after-close job ran.
-   A mistaken `git pull` on the phone (divergent from the scrubbed history)
-   was fixed with `git reset --hard origin/main`; capture was unaffected
-   (oar runs the installed copy in .venv, not the repo files).
+   A mistaken `git pull` on the phone was fixed with
+   `git reset --hard origin/main`; capture was unaffected (oar runs the
+   installed copy in .venv, not the repo files).
 7. 16 Nov: phone data copied to the PC (27 files, sha256-identical), then
    the phone rig was removed completely (see PHONE RIG). 2.92 GB freed.
-8. 16 Nov: broker user id in the data replaced with DUMMYUSER; data pushed,
-   then licensing research showed it must not be public; the data commit was
-   removed from history, market-data/ git-ignored, force-pushed (see MARKET
-   DATA).
+8. 16 Nov: broker user id in the data replaced with DUMMYUSER; licensing
+   research showed the data must not be public, so market-data/ is
+   git-ignored and kept local only (see MARKET DATA).
 9. 16 Nov: one emoji per section header in all docs; handoff consolidated.
+10. 16 Nov: old GitHub repo deleted and recreated public with a single
+   "Initial commit" of the same files (local .git replaced too).
 
 MARKET DATA (office PC only: <repo>/market-data/, git-ignored)
 - date=2026-11-12 (3.6 MB): after-close only. 332/332 bar calls ok, 61,853
@@ -96,12 +99,12 @@ MARKET DATA (office PC only: <repo>/market-data/, git-ignored)
   IV/greeks), BSE redistribution licence fees and Upstox terms all require
   written consent / a licence to republish, historical data included. A
   LICENSE file cannot grant that. Keep it local or in private storage.
-- The removed data commit (779883b) may stay reachable on GitHub by direct
-  URL until GitHub garbage-collects it; GitHub Support can purge it. Anyone
-  who cloned during the ~1 h it was public keeps a copy.
-- Backup bundle with full history incl. the data commit (112 MB, Windows may
-  clear Temp; delete when no longer needed):
-  %TEMP%\claude\7845b17581e50dab\5c7f138b-e4f0-4ef4-990f-a0bed09af73f\scratchpad\oa-recorder-before-unpublish.bundle
+- The data was public on the old (now deleted) repo for about 1 hour on
+  16 Nov; anyone who cloned it then keeps a copy.
+- A backup of the old repo's history, which includes the data (112 MB), is
+  on the office PC under %TEMP%\claude\...\scratchpad\
+  oa-recorder-before-unpublish.bundle; Windows may clear it, delete it when
+  no longer needed.
 - market-data/ is the only copy: back it up privately if it matters.
 
 CODE
@@ -160,8 +163,9 @@ NEXT STEPS
    manifest.json and events.parquet; raise chain_seconds on quote refusals.
 2. Keep recorded data out of git (market-data/ and data/ are ignored);
    plan disk for ~650 MB/day or set keep_raw=false.
-3. Optional: GitHub Support purge of commit 779883b; delete the backup
-   bundle; back up market-data/ privately.
+3. Optional: delete the old-history backup bundle; back up market-data/
+   privately; remove the GitHub CLI delete_repo permission
+   (`gh auth refresh -h github.com -r delete_repo`).
 4. Possible later additions (not built): auto-restart watchdog, README
    Android section.
 
@@ -201,6 +205,6 @@ PHONE RIG (Android test rig, REMOVED 2026-11-16 — notes for a rebuild)
      Vivo battery option to "no restrictions"; check `tmux ls` each morning.
   8. Never `pkill -f "python app.py"` over ssh (kills its own shell); use
      `tmux kill-session -t openalgo`.
-  9. After the 14 Nov history rewrite, a phone clone needed
-     `git reset --hard origin/main` instead of `git pull`.
+  9. A clone made before the repo was recreated cannot `git pull`; clone it
+     again (or `git fetch` + `git reset --hard origin/main`).
 ```
