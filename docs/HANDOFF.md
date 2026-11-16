@@ -83,6 +83,10 @@ HISTORY, IN ORDER
    bundle deleted from the office PC; owner set the repo About description
    and topics; the "copies from the hour the data was public" risk closed by
    the owner (accepted, no further action).
+12. 16 Nov: two mistyped repo topics fixed ("marke" -> market-data,
+   "algorithmic-trading-quantitative" -> algorithmic-trading); owner kept
+   market-data. 20 topics. Wrap-up: everything asked for is done; the only
+   open item is deploying oar to a server for daily recording.
 
 MARKET DATA (office PC only: <repo>/market-data/, git-ignored)
 - date=2026-11-12 (3.6 MB): after-close only. 332/332 bar calls ok, 61,853
