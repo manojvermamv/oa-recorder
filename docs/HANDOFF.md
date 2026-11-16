@@ -167,9 +167,7 @@ NEXT STEPS
    manifest.json and events.parquet; raise chain_seconds on quote refusals.
 2. Keep recorded data out of git (market-data/ and data/ are ignored);
    plan disk for ~650 MB/day or set keep_raw=false.
-3. Optional: back up market-data/ privately. Two repo topics look mistyped:
-   "marke" (meant market-data?) and "algorithmic-trading-quantitative"
-   (meant algorithmic-trading?).
+3. Optional: back up market-data/ privately.
 4. Possible later additions (not built): auto-restart watchdog, README
    Android section.
 
