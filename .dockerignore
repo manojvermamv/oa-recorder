@@ -1,0 +1,6 @@
+_ref/
+data/
+.env
+.venv/
+tests/
+**/__pycache__/

@@ -1,0 +1,11 @@
+_ref/
+data/
+# Recorded NSE/BSE market data: exchange-licensed, never publish
+market-data/
+.env
+config.toml
+.venv/
+__pycache__/
+*.egg-info/
+build/
+.pytest_cache/

@@ -1,0 +1,44 @@
+# openalgo-recorder settings. Copy to config.toml and edit.
+# Environment variables override: OAR_API_KEY, OAR_HOST, OAR_WS_URL, OAR_DATA_DIR, OAR_CONFIG.
+
+[openalgo]
+host = "http://127.0.0.1:5000"     # REST base URL (no /api/v1)
+ws_url = "ws://127.0.0.1:8765"     # websocket proxy; behind nginx use "wss://<domain>/ws"
+# api_key = ""                     # better: set OAR_API_KEY in the environment
+timeout = 30                       # seconds per REST call
+
+[capture]
+data_dir = "./data"
+strike_count = 20                  # strikes each side of ATM, CE and PE (1-100)
+expiries = 1                       # nearest N expiries per underlying
+chain_seconds = 60                 # option chain (+ IV/greeks) snapshot interval; shares the broker's quote limit
+with_greeks = true
+interest_rate = 0.0                # percent, used for IV/greeks
+ws_mode = "Depth"                  # "LTP", "Quote" or "Depth"
+depth_levels = 5
+history_intervals = ["1m", "D"]    # after-close bars (with OI)
+save_instruments = true            # save the day's master contract for the exchanges below
+keep_raw = true                    # keep the raw JSON-lines files after Parquet conversion
+
+[session]                          # IST
+start = "09:00"
+market_open = "09:15"              # stall detection starts here
+end = "15:35"
+eod = "15:45"                      # after-close jobs
+stall_seconds = 60                 # no ticks this long in market hours -> reconnect
+
+[[underlying]]
+name = "NIFTY"
+spot_exchange = "NSE_INDEX"
+option_exchange = "NFO"
+
+[[underlying]]
+name = "SENSEX"
+spot_exchange = "BSE_INDEX"
+option_exchange = "BFO"
+
+# More examples:
+# [[underlying]]
+# name = "BANKNIFTY"
+# spot_exchange = "NSE_INDEX"
+# option_exchange = "NFO"

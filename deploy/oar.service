@@ -1,0 +1,19 @@
+# systemd unit for a native (non-Docker) Linux install.
+#   sudo cp deploy/oar.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now oar
+#   journalctl -u oar -f
+[Unit]
+Description=openalgo-recorder (oar)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=oar
+WorkingDirectory=/opt/oar
+EnvironmentFile=/opt/oar/.env
+ExecStart=/opt/oar/.venv/bin/oar run
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
