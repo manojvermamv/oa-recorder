@@ -41,8 +41,11 @@ STATE NOW
   code unchanged since).
 - Proven against real OpenAlgo 2.0.3.3 + Upstox (on the phone): oar check,
   after-close fetch (12, 13, 16 Nov) and live capture (16 Nov, 41 min).
-- Recorded data lives ONLY on the office PC in <repo>/market-data/
-  (27 files, ~115 MB), git-ignored (see MARKET DATA). Never push it.
+- Recorded data lives ONLY on the owner's EC2 server (ssh alias "ubuntu",
+  ~/oa-recorder/market-data/, 27 files, ~115 MB), git-ignored (see MARKET
+  DATA). Never push it. The office PC no longer has a copy.
+- The repo is also cloned on that server at ~/oa-recorder (code only; not
+  installed or running yet).
 
 HISTORY, IN ORDER
 1. 13 Nov: owner asked for oar, research first. Request quoted verbatim in
@@ -87,8 +90,12 @@ HISTORY, IN ORDER
    "algorithmic-trading-quantitative" -> algorithmic-trading); owner kept
    market-data. 20 topics. Wrap-up: everything asked for is done; the only
    open item is deploying oar to a server for daily recording.
+13. 16 Nov: repo cloned on the owner's EC2 server ("ubuntu", ~/oa-recorder,
+   same latest version as GitHub). market-data/ moved there: all 27 files
+   sha256-identical (114,885,764 bytes) on both sides before the office PC
+   copy was deleted.
 
-MARKET DATA (office PC only: <repo>/market-data/, git-ignored)
+MARKET DATA (EC2 server "ubuntu" only: ~/oa-recorder/market-data/, git-ignored)
 - date=2026-11-12 (3.6 MB): after-close only. 332/332 bar calls ok, 61,853
   bars, 163 options (NIFTY 82, SENSEX 81) + 2 spots.
 - date=2026-11-13 (3.8 MB): after-close only. 332/332 ok, 63,445 bars.
@@ -113,7 +120,8 @@ MARKET DATA (office PC only: <repo>/market-data/, git-ignored)
   for about 1 hour; possible copies made then are accepted, no action.
 - The old-history backup bundle is deleted; no copy of the old history
   remains on GitHub or the office PC.
-- market-data/ is the only copy: back it up privately if it matters.
+- The server's market-data/ is the only copy: back it up privately if it
+  matters (e.g. an EBS snapshot or a private S3 bucket).
 
 CODE
 - oar/config.py   settings (config.toml + .env + env vars; env vars win;
